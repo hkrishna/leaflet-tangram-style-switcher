@@ -106,10 +106,10 @@ L.Control.Styles = L.Control.extend({
                       self._play();
                     } 
                     L.DomUtil.addClass(self._container, "expanded");
-                    if (!self._icon.classList.contains('fa-refresh')) {
-                      L.DomUtil.addClass(self._icon, "fa-play")
+                    if (!self._icon.classList.contains('fa-refresh') && !self.options.play) {
+                      L.DomUtil.addClass(self._icon, "fa-play");
+                      L.DomUtil.removeClass(self._icon, "fa-heart");
                     }
-                    L.DomUtil.removeClass(self._icon, "fa-heart");
                     L.DomUtil.removeClass(self._list, "hidden"); 
                 } else {
                     L.DomUtil.removeClass(self._container, "expanded");
