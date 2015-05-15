@@ -109,7 +109,9 @@ L.Control.Styles = L.Control.extend({
                 } else {
                     L.DomUtil.removeClass(self._container, "expanded");
                     L.DomUtil.addClass(self._icon, "fa-heart");
-                    L.DomUtil.removeClass(self._icon, "fa-play fa-refresh fa-spin");
+                    L.DomUtil.removeClass(self._icon, "fa-play");
+                    L.DomUtil.removeClass(self._icon, "fa-refresh");
+                    L.DomUtil.removeClass(self._icon, "fa-spin");
                     L.DomUtil.addClass(self._list, "hidden");
                     self._show = false;
                     self._animate = false;
