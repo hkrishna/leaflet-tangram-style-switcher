@@ -1,5 +1,8 @@
 /*
 This plugin adds a bunch of custom styles to your leaflet map as a drop down menu L.Control
+TODO: abstract out all the icons and remove font awesome dependency
+TODO: Check for tangram/window.layer - if undefined, then dont render anything and throw a nice error msg
+TODO: Clean up.
 */
 L.Control.Styles = L.Control.extend({
     options: {
@@ -7,6 +10,7 @@ L.Control.Styles = L.Control.extend({
         icon: 'fa fa-heart',
         play: true,
         autoplay: false,
+        interval: 2500,
         styles: [
             {'style_file': 'https://tangrams.github.io/carousel/traditional.yaml', 'name': 'traditional'},
             {'style_file': 'https://tangrams.github.io/carousel/halftone.yaml', 'name': 'halftone'},
@@ -19,9 +23,7 @@ L.Control.Styles = L.Control.extend({
             {'style_file': 'https://tangrams.github.io/tangram-sandbox/styles/patterns.yaml', 'name': 'patterns'},
             {'style_file': 'https://tangrams.github.io/tangram-sandbox/styles/tron.yaml', 'name': 'tron'}
         ],
-        strings: {
-            title: "Show me other map styles"
-        },
+        title: "Show me other map styles", 
         scene: window.layer ? window.layer.scene : undefined
     },
 
@@ -52,7 +54,7 @@ L.Control.Styles = L.Control.extend({
 
         this._link = L.DomUtil.create('a', 'leaflet-bar-part leaflet-bar-part-single', container);
         this._link.href = '#';
-        this._link.title = this.options.strings.title;
+        this._link.title = this.options.title;
         this._icon = L.DomUtil.create('i', this.options.icon, this._link);
         this._list = L.DomUtil.create('ul', 'styles shortcuts hidden', container);
         this._play = function() {
@@ -69,7 +71,7 @@ L.Control.Styles = L.Control.extend({
               i=0;
             }
             self.switchStyle(self.options.styles[i].style_file);
-          }, 2500);
+          }, self.options.interval);
         };
 
         for (var i=0; i<this.options.styles.length; i++) {
