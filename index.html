@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html data-ng-app="pelias">
+  <head>
+    <title>Leaflet Tangram Style Switcher Demo</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link rel="stylesheet" href="leaflet-tangram-switcher.css" />
+    <style>
+      body {
+        font: 14px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+        padding: 0px;
+        margin: 0px;
+      }
+
+      #map {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+      <div id="map"></div>
+
+      <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet-src.js"></script>
+      <script type="text/javascript" src="https://cdn.rawgit.com/mlevans/leaflet-hash/master/leaflet-hash.js"></script>
+      
+      <!-- Main tangram library -->
+      <script src="https://mapzen.com/tangram/0.1/tangram.min.js"></script>
+      
+      <!-- Tangram style switcher -->
+      <script type="text/javascript" src="leaflet-tangram-switcher.js" ></script>
+
+      <script type="text/javascript">
+        var map = L.map('map').setView([40.7259, -73.9805], 12);
+
+        // using tangram
+        var layer = Tangram.leafletLayer({
+            scene: 'https://tangrams.github.io/carousel/traditional.yaml',
+            attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+        }).addTo(map);
+
+        // set up hash
+        var hash = new L.Hash(map);
+
+        // add tangram style switcher
+        L.control.styles({ scene: layer.scene }).addTo(map);
+
+      </script>
+  </body>
+</html>
